@@ -8,22 +8,10 @@ ENGLISH_FREQUENCIES = [0.08167, 0.01492, 0.02782, 0.04253, 0.12702, 0.02228,
                        0.01974, 0.00074]
 
 
-def is_uppercase(character):
-    return 65 <= ord(character) <= 90
-
-
-def is_lowercase(character):
-    return 97 <= ord(character) <= 122
-
-
-def is_alphabet_character(character):
-    return is_uppercase(character) or is_lowercase(character)
-
-
 def get_character_entropy(character):
-    if is_uppercase(character):
+    if character.islower():
         return math.log(ENGLISH_FREQUENCIES[ord(character) - 65])
-    elif is_lowercase(character):
+    elif character.isupper():
         return math.log(ENGLISH_FREQUENCIES[ord(character) - 97])
     return
 
@@ -31,12 +19,12 @@ def get_character_entropy(character):
 def alphabet_characters_entropy_sum(string):
     return sum([get_character_entropy(character)
                for character in string
-               if is_alphabet_character(character)])
+               if character.isalpha()])
 
 
 def non_alphabet_characters_count(string):
     return len([character for character in string
-                if not is_alphabet_character(character)])
+                if not character.isalpha()])
 
 
 def string_entropy(string):
@@ -49,9 +37,9 @@ def mod(x, y):
 
 
 def shift_character(character, key):
-    if is_uppercase(character):
+    if character.islower():
         return chr(mod(ord(character) - 65 - key, 26) + 65)
-    elif is_lowercase(character):
+    elif character.isupper():
         return chr(mod(ord(character) - 97 - key, 26) + 97)
     else:
         return character
