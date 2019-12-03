@@ -9,9 +9,9 @@ ENGLISH_FREQUENCIES = [0.08167, 0.01492, 0.02782, 0.04253, 0.12702, 0.02228,
 
 
 def get_character_entropy(character):
-    if character.islower():
+    if character.isupper():
         return math.log(ENGLISH_FREQUENCIES[ord(character) - 65])
-    elif character.isupper():
+    elif character.islower():
         return math.log(ENGLISH_FREQUENCIES[ord(character) - 97])
     return
 
@@ -37,9 +37,9 @@ def mod(x, y):
 
 
 def shift_character(character, key):
-    if character.islower():
+    if character.isupper():
         return chr(mod(ord(character) - 65 - key, 26) + 65)
-    elif character.isupper():
+    elif character.islower():
         return chr(mod(ord(character) - 97 - key, 26) + 97)
     else:
         return character
